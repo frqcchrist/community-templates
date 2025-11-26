@@ -1,0 +1,556 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+    - uuid: 7df96b18c230490a9a0a9e2307226338
+      name: Templates
+  templates:
+    - uuid: c260c2122df6477184853bd202468c95
+      template: 'atmedia encryptors'
+      name: 'atmedia encryptors'
+      groups:
+        - name: Templates
+      items:
+        - uuid: ab525ce1ea9c4ef0ba2f64b2ad94cb36
+          name: 'serial number'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.13458.1.1.2.0
+          key: atmedia.acSerialNumber
+          value_type: TEXT
+          trends: '0'
+          status: DISABLED
+          tags:
+            - tag: device
+        - uuid: a0d3734719d240f6be5a50a511564714
+          name: Contact
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.13458.1.1.4.0
+          key: atmedia.contact
+          value_type: TEXT
+          trends: '0'
+          status: DISABLED
+          tags:
+            - tag: device
+        - uuid: 58c9d5e6d8634aadb4581f92cb4dc8e3
+          name: 'cpu temperature 1'
+          type: SNMP_AGENT
+          snmp_oid: 'get[1.3.6.1.4.1.13458.1.5.5.0]'
+          key: atmedia.cputemp1
+          value_type: FLOAT
+          trends: '0'
+          status: DISABLED
+          description: 'Temperature of the first CPU of the ATMedia Encryptor device in hundredth of degree celsius.'
+          preprocessing:
+            - type: MULTIPLIER
+              parameters:
+                - '0.01'
+          tags:
+            - tag: device
+        - uuid: 6359b8bc5c534237a5ea6bed7df36d44
+          name: 'cpu temperature 2'
+          type: SNMP_AGENT
+          snmp_oid: 'get[1.3.6.1.4.1.13458.1.5.6.0]'
+          key: atmedia.cputemp2
+          trends: '0'
+          status: DISABLED
+          description: 'Temperature of the second CPU of the ATMedia Encryptor device in hundredth of degree celsius'
+          preprocessing:
+            - type: MULTIPLIER
+              parameters:
+                - '0.01'
+          tags:
+            - tag: device
+        - uuid: b8ab305942c245cbb096ef9d093f276b
+          name: 'software description'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.13458.1.2.2.0
+          key: atmedia.descr
+          value_type: TEXT
+          trends: '0'
+          status: DISABLED
+          tags:
+            - tag: device
+        - uuid: 336834950baf4ff1a692687125ed3adb
+          name: 'fan speed 1'
+          type: SNMP_AGENT
+          snmp_oid: 'get[1.3.6.1.4.1.13458.1.5.7.0]'
+          key: atmedia.fan1
+          trends: '0'
+          description: 'Speed of the first fan of the ATMedia Encryptor device in rpm (revolutions per minute)'
+          tags:
+            - tag: device
+            - tag: fan
+          triggers:
+            - uuid: f89f9235117e4b55b3ac9f0efeafd0c7
+              expression: 'last(/atmedia encryptors/atmedia.fan1,#5)=0'
+              recovery_mode: RECOVERY_EXPRESSION
+              recovery_expression: 'last(/atmedia encryptors/atmedia.fan1,#5)>0'
+              name: 'Fan 1 not running since 5 minutes'
+              priority: AVERAGE
+        - uuid: abca96db20e04153b62a56fbe11e58ed
+          name: 'fan speed 2'
+          type: SNMP_AGENT
+          snmp_oid: 'get[1.3.6.1.4.1.13458.1.5.8.0]'
+          key: atmedia.fan2
+          trends: '0'
+          description: 'Speed of the second fan of the ATMedia Encryptor device in rpm (revolutions per minute)'
+          tags:
+            - tag: device
+            - tag: fan
+          triggers:
+            - uuid: e2ccb1f3da0e493d9f43503dcd631e75
+              expression: 'last(/atmedia encryptors/atmedia.fan2,#5)=0'
+              recovery_mode: RECOVERY_EXPRESSION
+              recovery_expression: 'last(/atmedia encryptors/atmedia.fan2,#5)>0'
+              name: 'Fan 2 not running since 5 minutes'
+              priority: AVERAGE
+        - uuid: 136611e066d0438889450e9d6958cf6e
+          name: 'fan speed 3'
+          type: SNMP_AGENT
+          snmp_oid: 'get[1.3.6.1.4.1.13458.1.5.9.0]'
+          key: atmedia.fan3
+          trends: '0'
+          description: 'Speed of the third fan of the ATMedia Encryptor device in rpm (revolutions per minute)'
+          tags:
+            - tag: device
+            - tag: fan
+          triggers:
+            - uuid: bda3989ad94a4e27b19a8e5854cdf3e2
+              expression: 'last(/atmedia encryptors/atmedia.fan3,#5)=0'
+              recovery_mode: RECOVERY_EXPRESSION
+              recovery_expression: 'last(/atmedia encryptors/atmedia.fan3,#5)>0'
+              name: 'Fan 3 not running since 5 minutes'
+              priority: AVERAGE
+        - uuid: db3329fe4bf24216968ff7c0249a59be
+          name: 'fan speed 4'
+          type: SNMP_AGENT
+          snmp_oid: 'get[1.3.6.1.4.1.13458.1.5.10.0]'
+          key: atmedia.fan4
+          trends: '0'
+          description: 'Speed of the forth fan of the ATMedia Encryptor device in rpm (revolutions per minute)'
+          tags:
+            - tag: device
+            - tag: fan
+          triggers:
+            - uuid: 7951069a7d00416082a3860e8b079f3f
+              expression: 'last(/atmedia encryptors/atmedia.fan4,#5)=0'
+              recovery_mode: RECOVERY_EXPRESSION
+              recovery_expression: 'last(/atmedia encryptors/atmedia.fan4,#5)>0'
+              name: 'Fan 4 not running since 5 minutes'
+              priority: AVERAGE
+        - uuid: 3c6d53a9f8a241b59e51a64bbda4e03f
+          name: hostname
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.13458.1.1.3.0
+          key: atmedia.hostname
+          value_type: TEXT
+          trends: '0'
+          status: DISABLED
+          tags:
+            - tag: device
+        - uuid: f331df68f94147b79c43a3e272d94095
+          name: 'last boot'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.13458.1.5.2.0
+          key: atmedia.lastboot
+          trends: '0'
+          status: DISABLED
+          description: 'Hundredth of seconds since last reboot.'
+          preprocessing:
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  
+                  // value is in hundredths of a second
+                  var timeticks = value / 100; // convert to seconds
+                  var now = new Date();
+                  var date = new Date(now.getTime() - timeticks * 1000);
+                  return date.toLocaleString('en-US'); // mm/dd/yyyy, hh:mm:ss
+                  
+          tags:
+            - tag: device
+        - uuid: 9e1a8db7584a4f5c978c6987018ccdee
+          name: 'power state'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.13458.1.5.11.0
+          key: atmedia.maint.powerstate
+          description: 'State of the power supply of the ATMedia Encryptor device Enumeration: ''down'': 2, ''unknown'': 0, ''up'': 1.'
+          valuemap:
+            name: powerstate
+          tags:
+            - tag: device
+            - tag: power
+        - uuid: 4fecabd649014404b3be33197d0c5060
+          name: 'product id'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.13458.1.1.1.0
+          key: atmedia.productid
+          value_type: TEXT
+          trends: '0'
+          status: DISABLED
+          tags:
+            - tag: device
+        - uuid: 817d176df73640f98155edaa73aac4d0
+          name: 'Software version'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.13458.1.1.6.0
+          key: atmedia.softversion
+          value_type: TEXT
+          trends: '0'
+          status: DISABLED
+          tags:
+            - tag: device
+        - uuid: d0b599ade94a46359e0f45e253cbe552
+          name: temperature
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.13458.1.5.4.0
+          key: atmedia.temp
+          value_type: FLOAT
+          trends: '0'
+          description: 'Temperature of ATMedia Encryptor device in hundredth of degree celsius.'
+          preprocessing:
+            - type: MULTIPLIER
+              parameters:
+                - '0.01'
+          tags:
+            - tag: device
+            - tag: temperature
+        - uuid: 18a3ea51c48347a5b966b3548f8a4f35
+          name: uptime
+          type: SNMP_AGENT
+          snmp_oid: 'get[1.3.6.1.4.1.13458.1.5.1.0]'
+          key: atmedia.uptime
+          trends: '0'
+          units: uptime
+          description: 'Hundredth of seconds since system start'
+          preprocessing:
+            - type: MULTIPLIER
+              parameters:
+                - '0.01'
+          tags:
+            - tag: device
+            - tag: uptime
+          triggers:
+            - uuid: 702789f71c0843ff8d61c3526b0278ff
+              expression: 'last(/atmedia encryptors/atmedia.uptime,#1)<1000'
+              name: 'Trigger restart detection "has been restarted"'
+              priority: WARNING
+              description: 'if uptime is less than 1000 secs, it has been restarted -> trigger'
+      discovery_rules:
+        - uuid: 46ffeea314ec4cfda90eebd3c74ecfdd
+          name: encryptors
+          type: SNMP_AGENT
+          snmp_oid: 'discovery[{#INDEX},1.3.6.1.4.1.13458.1.3.4.2.1.1,{#IFNAME},1.3.6.1.4.1.13458.1.3.4.2.1.2,{#IFREV},1.3.6.1.4.1.13458.1.3.4.2.1.3]'
+          key: atmedia.enc.discovery
+          delay: 2m
+          description: 'discovery of encryptors'
+          item_prototypes:
+            - uuid: 27a0fd0ea2e34f4391e2787c5102bb7b
+              name: 'Encryptor {#IFNAME} index'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.13458.1.3.4.2.1.1.{#INDEX}'
+              key: 'atmedia.enc.index[{#INDEX}]'
+              trends: '0'
+              status: DISABLED
+              discover: NO_DISCOVER
+              tags:
+                - tag: '{#IFNAME}'
+            - uuid: e72efb91f8684183b9d54fa25b395a6c
+              name: 'Encryptor {#IFNAME} revision'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.13458.1.3.4.2.1.3.{#INDEX}'
+              key: 'atmedia.enc.rev[{#INDEX}]'
+              value_type: TEXT
+              trends: '0'
+              tags:
+                - tag: revision
+                - tag: '{#IFNAME}'
+            - uuid: dc676b2800d3419dbc7992b919d8b8b3
+              name: 'Encryptor {#IFNAME} state'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.13458.1.4.2.2.1.2.{#INDEX}'
+              key: 'atmedia.enc.state[{#INDEX}]'
+              description: 'Status of the encryptor engine. Since version 2.1 all encryptors will distinguish between crypt (running) and plaintext mode Enumeration: ''down'': 2, ''plain'': 3, ''up'': 1.'
+              valuemap:
+                name: 'encryptor states'
+              tags:
+                - tag: state
+                - tag: '{#IFNAME}'
+              trigger_prototypes:
+                - uuid: ae7025b6c9db4ba3a4c5f6db490d415c
+                  expression: 'last(/atmedia encryptors/atmedia.enc.state[{#INDEX}],#1)=2'
+                  recovery_mode: RECOVERY_EXPRESSION
+                  recovery_expression: 'last(/atmedia encryptors/atmedia.enc.state[{#INDEX}],#1)=1 or last(/atmedia encryptors/atmedia.enc.state[{#INDEX}],#1)=3'
+                  name: 'Encryptor state is down'
+                  priority: HIGH
+                - uuid: 9b379b0fc1814fccb4a3f3f2aa443892
+                  expression: 'last(/atmedia encryptors/atmedia.enc.state[{#INDEX}],#1)=3'
+                  recovery_mode: RECOVERY_EXPRESSION
+                  recovery_expression: 'last(/atmedia encryptors/atmedia.enc.state[{#INDEX}],#1)=1'
+                  name: 'Encryptor state is plain'
+                  priority: AVERAGE
+        - uuid: a75f3fd492e5450889b562d7d0e3a821
+          name: 'Gigabit Errors'
+          type: SNMP_AGENT
+          snmp_oid: 'discovery[{#INDEX},1.3.6.1.4.1.13458.1.6.4.3.2.1.1,{#IFNAME},1.3.6.1.4.1.13458.1.3.3.2.1.2,{#IFTOTALFRAME},1.3.6.1.4.1.13458.1.6.4.3.2.1.2,{#IFERROREDFRAME},1.3.6.1.4.1.13458.1.6.4.3.2.1.3,{#IFCOUBTERFALSECARRIER},1.3.6.1.4.1.13458.1.6.4.3.2.1.4,{#IFCOUBTERLOSSOFSYNC},1.3.6.1.4.1.13458.1.6.4.3.2.1.5,{#IFCOUBTERLINEERROR},1.3.6.1.4.1.13458.1.6.4.3.2.1.6]'
+          key: atmedia.gigabiterrors.discovery
+          delay: 2m
+          item_prototypes:
+            - uuid: 748dd9b0cd2d41a1930b7e712247fdce
+              name: '{#IFNAME} counter false carrier'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.13458.1.6.4.3.2.1.4.{#INDEX}'
+              key: 'atmedia.gb.counterfalsecarrier[{#INDEX}]'
+              tags:
+                - tag: 'false carrier'
+                - tag: '{#IFNAME}'
+              trigger_prototypes:
+                - uuid: 6fc091396ee04bac86594205aacbe7f6
+                  expression: 'last(/atmedia encryptors/atmedia.gb.counterfalsecarrier[{#INDEX}],#1)>0'
+                  recovery_mode: RECOVERY_EXPRESSION
+                  recovery_expression: 'last(/atmedia encryptors/atmedia.gb.counterfalsecarrier[{#INDEX}],#1)=0'
+                  name: 'Gigabit Errors'
+                  priority: AVERAGE
+            - uuid: 52aa6b6e16c948438ef509db864c1f45
+              name: '{#IFNAME} counter line error'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.13458.1.6.4.3.2.1.6.{#INDEX}'
+              key: 'atmedia.gb.counterlineerror[{#INDEX}]'
+              tags:
+                - tag: 'line error'
+                - tag: '{#IFNAME}'
+            - uuid: 4b0854736fd845e291cd177d4175001f
+              name: '{#IFNAME} counter loss of sync'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.13458.1.6.4.3.2.1.5.{#INDEX}'
+              key: 'atmedia.gb.counterlossofsync[{#INDEX}]'
+              tags:
+                - tag: 'loss of sync'
+                - tag: '{#IFNAME}'
+            - uuid: a06b7c03eb1441ada11f8af533f65a84
+              name: '{#IFNAME} errored frame'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.13458.1.6.4.3.2.1.3.{#INDEX}'
+              key: 'atmedia.gb.erroredframe[{#INDEX}]'
+              tags:
+                - tag: 'errored frame'
+                - tag: '{#IFNAME}'
+            - uuid: 2b079c6d83e14d2c9dc95219b74602fa
+              name: '{#IFNAME} total frame'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.13458.1.6.4.3.2.1.2.{#INDEX}'
+              key: 'atmedia.gb.totalframe[{#INDEX}]'
+              tags:
+                - tag: 'total frame'
+                - tag: '{#IFNAME}'
+        - uuid: 97508632da8b4b2b8de165200aedd037
+          name: 'local interfaces'
+          type: SNMP_AGENT
+          snmp_oid: 'discovery[{#INDEX},1.3.6.1.4.1.13458.1.3.3.2.1.1,{#IFNAME},1.3.6.1.4.1.13458.1.3.3.2.1.2,{#IFTYPE},1.3.6.1.4.1.13458.1.3.3.2.1.3,{#IFSPEED},1.3.6.1.4.1.13458.1.3.3.2.1.4]'
+          key: atmedia.localinterfaces
+          delay: 2m
+          item_prototypes:
+            - uuid: 413b49ab54af4ed4b3340caf1dcfe1f5
+              name: 'Interface {#IFNAME} description'
+              type: SNMP_AGENT
+              snmp_oid: 'enterprises.13458.1.3.3.2.1.2.{#INDEX}'
+              key: 'atmedia.if.descr[{#INDEX}]'
+              value_type: TEXT
+              trends: '0'
+              status: DISABLED
+              tags:
+                - tag: descr
+                - tag: '{#IFNAME}'
+            - uuid: 5c71692170944f319f41a04de5c97a2e
+              name: 'Interface {#IFNAME} rev'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.13458.1.3.3.2.1.5.{#INDEX}'
+              key: 'atmedia.if.rev[{#INDEX}]'
+              value_type: TEXT
+              trends: '0'
+              tags:
+                - tag: revision
+                - tag: '{#IFNAME}'
+            - uuid: f967d8d7738e4a018c1ff009c8e0945d
+              name: 'Interface {#IFNAME} speed'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.13458.1.3.3.2.1.4.{#INDEX}'
+              key: 'atmedia.if.speed[{#INDEX}]'
+              trends: '0'
+              units: bps
+              description: 'Speed of the physical interface in bps'
+              tags:
+                - tag: speed
+                - tag: '{#IFNAME}'
+            - uuid: 067a34424cb845f49286e8a67d4a6f97
+              name: 'Interface {#IFNAME} type'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.13458.1.3.3.2.1.3.{#INDEX}'
+              key: 'atmedia.if.type[{#INDEX}]'
+              trends: '0'
+              description: 'Type of the physical interface. Enumeration: ''fibrechannel'': 8, ''sonetlink'': 7, ''ds3'': 3, ''ds1'': 5, ''sonet'': 1, ''other'': 0, ''gigabit'': 6, ''ethernet'': 9, ''e1'': 4, ''e3'': 2.'
+              valuemap:
+                name: 'interface types'
+              tags:
+                - tag: type
+                - tag: '{#IFNAME}'
+        - uuid: d2aea93de6bf467cbafa1c60d36b5110
+          name: Status
+          type: SNMP_AGENT
+          snmp_oid: 'discovery[{#INDEX},1.3.6.1.4.1.13458.1.4.1.2.1.1,{#IFNAME},1.3.6.1.4.1.13458.1.3.3.2.1.2,{#IFSTATE},1.3.6.1.4.1.13458.1.4.1.2.1.2,{#IIFLASTCHANGE},1.3.6.1.4.1.13458.1.4.1.2.1.3,{#IFSTATUS},1.3.6.1.4.1.13458.1.4.1.2.1.4,{#IFRXCELLS},1.3.6.1.4.1.13458.1.4.1.2.1.5,{#IFTXCELLS},1.3.6.1.4.1.13458.1.4.1.2.1.6,{#IFRXBYTES},1.3.6.1.4.1.13458.1.4.1.2.1.7,{#IFTXBYTES},1.3.6.1.4.1.13458.1.4.1.2.1.8,{#IFRXRATE},1.3.6.1.4.1.13458.1.4.1.2.1.9,{#IFTXRATE},1.3.6.1.4.1.13458.1.4.1.2.1.10]'
+          key: atmedia.status.discovery
+          delay: 2m
+          item_prototypes:
+            - uuid: 646cb4c9a0da4806b33fc2c00f6e1726
+              name: 'status {#IFNAME} state description'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.13458.1.4.1.2.1.4.{#INDEX}'
+              key: 'atamedia.status.descr[{#INDEX}]'
+              value_type: TEXT
+              trends: '0'
+              description: 'Data rate with which cells are sent by the physical interface.'
+              tags:
+                - tag: 'state description'
+                - tag: '{#IFNAME}'
+            - uuid: c626cb7d798347b48ae5d0bcb6e71252
+              name: 'status {#IFNAME} index'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.13458.1.4.1.2.1.1.{#INDEX}'
+              key: 'atamedia.status.index[{#INDEX}]'
+              status: DISABLED
+              discover: NO_DISCOVER
+              description: 'A unique value, greater than zero, for each physical interface. It is recommended that values are assigned contiguously starting from 1. The value for each interface must remain constant at least from one re-initialization of the entity''s network management system to the next re- initialization.'
+              tags:
+                - tag: '{#IFNAME}'
+            - uuid: fc7060c32b65486893535dcc206e78ee
+              name: 'status {#IFNAME} last change'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.13458.1.4.1.2.1.3.{#INDEX}'
+              key: 'atamedia.status.lastchange[{#INDEX}]'
+              trends: '0'
+              status: DISABLED
+              discover: NO_DISCOVER
+              units: uptime
+              description: 'The value of sysUpTime at the time the interface entered its current operational state.'
+              tags:
+                - tag: '{#IFNAME}'
+            - uuid: 63003da8be3c4a87875d99a8052fbe1a
+              name: 'status {#IFNAME} rxcells'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.13458.1.4.1.2.1.5.{#INDEX}'
+              key: 'atamedia.status.rxcells[{#INDEX}]'
+              tags:
+                - tag: 'rx cells'
+                - tag: '{#IFNAME}'
+            - uuid: 4337c7deddde48c693f76850f7382c16
+              name: 'status {#IFNAME} rx rate'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.13458.1.4.1.2.1.9.{#INDEX}'
+              key: 'atamedia.status.rxraate[{#INDEX}]'
+              units: bps
+              tags:
+                - tag: 'rx rate'
+                - tag: '{#IFNAME}'
+            - uuid: 2cbacab8f8004881a78e47dc9b9d26f2
+              name: 'status {#IFNAME} state'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.13458.1.4.1.2.1.2.{#INDEX}'
+              key: 'atamedia.status.state[{#INDEX}]'
+              description: 'The current operational state of the interface. Enumeration: ''down'': 2, ''up'': 1.'
+              valuemap:
+                name: state
+              tags:
+                - tag: state
+                - tag: '{#IFNAME}'
+              trigger_prototypes:
+                - uuid: bdcb6a83d08541959989694d74b82f89
+                  expression: 'last(/atmedia encryptors/atamedia.status.state[{#INDEX}],#1)=2'
+                  recovery_mode: RECOVERY_EXPRESSION
+                  recovery_expression: 'last(/atmedia encryptors/atamedia.status.state[{#INDEX}],#1)=1'
+                  name: 'Interface  {#IFNAME} down'
+                  priority: HIGH
+            - uuid: 7794bfdd8ac54a8a90fe411e3ce4f0b6
+              name: 'status {#IFNAME} tx bytes'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.13458.1.4.1.2.1.8.{#INDEX}'
+              key: 'atamedia.status.txbytes[{#INDEX}]'
+              description: 'Number of bytes sent by the physical interface.'
+              tags:
+                - tag: 'tx bytes'
+                - tag: '{#IFNAME}'
+            - uuid: b2153a7630ac46da8c272a9d965f601c
+              name: 'status {#IFNAME} txcells'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.13458.1.4.1.2.1.6.{#INDEX}'
+              key: 'atamedia.status.txcells[{#INDEX}]'
+              tags:
+                - tag: 'tx cells'
+                - tag: '{#IFNAME}'
+            - uuid: c0c97d8e43ec489193c3f668a732e31d
+              name: 'status {#IFNAME} tx rate'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.13458.1.4.1.2.1.10.{#INDEX}'
+              key: 'atamedia.status.txrate[{#INDEX}]'
+              description: 'Data rate with which cells are sent by the physical interface.'
+              tags:
+                - tag: 'tx rate'
+                - tag: '{#IFNAME}'
+            - uuid: 20136629fb10498082f6e81e4cda4d8e
+              name: 'status{#IFNAME} rx bytes'
+              type: SNMP_AGENT
+              snmp_oid: '1.3.6.1.4.1.13458.1.4.1.2.1.7.{#INDEX}'
+              key: 'atmedia.status.rxbytes[{#INDEX}]'
+              description: 'Number of bytes received by the physical interface.'
+              tags:
+                - tag: 'rx bytes'
+                - tag: '{#IFNAME}'
+      tags:
+        - tag: atmedia
+      valuemaps:
+        - uuid: 98b99b53ed1a47fcb659ffddf7097fb3
+          name: 'encryptor states'
+          mappings:
+            - value: '2'
+              newvalue: down
+            - value: '3'
+              newvalue: plain
+            - value: '1'
+              newvalue: up
+        - uuid: bb6518d9275e4d429ff4e7c0d8a4a94c
+          name: 'interface types'
+          mappings:
+            - value: '8'
+              newvalue: fibrechannel
+            - value: '7'
+              newvalue: sonetlink
+            - value: '3'
+              newvalue: ds3
+            - value: '5'
+              newvalue: ds1
+            - value: '1'
+              newvalue: sonet
+            - value: '0'
+              newvalue: other
+            - value: '6'
+              newvalue: gigabit
+            - value: '9'
+              newvalue: ethernet
+            - value: '4'
+              newvalue: e1
+            - value: '2'
+              newvalue: e3
+        - uuid: ddf35444ab7742e7a0c9117e938ae1ed
+          name: powerstate
+          mappings:
+            - value: '2'
+              newvalue: down
+            - value: '0'
+              newvalue: unknown
+            - value: '1'
+              newvalue: up
+        - uuid: 7b0501f7a2414c5689e444669d5cacf2
+          name: state
+          mappings:
+            - value: '1'
+              newvalue: up
+            - value: '2'
+              newvalue: down
